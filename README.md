@@ -55,7 +55,7 @@ Notes, build scripts, and associated files for the Automating BIG-IP version 17.
 | AUTO175-4C5L14-ONBOARD   | Onboarding, Deprovisioning and Licensing   |        1 | AUTO175-460 |  X   |    X     |          |
 | AUTO175-4C5L16-HA        | Deploying HA                               |        1 | AUTO175-470 |  X   |    X     |          |
 | AUTO175-4C5L18-ROLES     | Understanding Ansible Roles                |        1 | AUTO175-480 |  X   |    X     |          |
-| AUTO175-3C5L01-AS3       | Automating BIG-IP with AS3                 |        4 | AUTO175-310 |  X   |    X     |          |
+| AUTO175-3C5L01-AS3       | Automating BIG-IP with AS3                 |        4 | AUTO175-300 |  X   |    X     |          |
 | AUTO175-2C6L01-DO        | Onboarding BIG-IP with DO                  |        2 | AUTO175-200 |  X   |    X     |          |
 | AUTO175-1C2L01-REVIEW    | Reviewing BIG-IP Virtual Servers           |        1 | AUTO175-100 |  X   |    X     |          |
 | AUTO175-1C4L01-JSON      | Introduction to JavaScript Object Notation |        1 | AUTO175-110 |  X   |    X     |          |
