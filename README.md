@@ -6,17 +6,17 @@ Notes, build scripts, and associated files for the Automating BIG-IP version 17.
 
 | Automating 17.1 Number | AUTO 17.5 Number    | Automating 17.5 Number   |
 | ---------------------- | ------------------- | ------------------------ |
-| ANS-C5L01-Yaml         | ANS-C5L01-YAML      | AUTO175-2C5L01-YAML      |
-| ANS-C5L03-Trust        | ANS-C5L03-TRUST     | AUTO175-2C5L03-TRUST     |
-| ANS-C5L05-Playbooks    | ANS-C5L05-PLAYBOOK  | AUTO175-2C5L05-PLAYBOOK  |
-| ANS-C5L07-InvFile      | ANS-C5L07-INVENTORY | AUTO175-2C5L07-INVENTORY |
-| ANS-C5L10-Commands     | ANS-C5L10-COMMAND   | AUTO175-2C5L10-COMMAND   |
-| ANS-C5L12-Apps         | ANS-C5L12-APP       | AUTO175-2C5L12-APP       |
-| ANS-C5L14-Onboard      | ANS-C5L14-ONBOARD   | AUTO175-2C5L14-ONBOARD   |
-| ANS-C5L16-HA           | ANS-C5L16-HA        | AUTO175-2C5L16-HA        |
-| ANS-C5L18-Roles        | ANS-C5L18-ROLES     | AUTO175-2C5L18-ROLES     |
-| AS3-C5L01-AutoAs3      | AS3-C5L01-AS3       | AUTO175-4C5L01-AS3       |
-| AS3-C6L01-DoOnboard    | AS3-C6L01-DO        | AUTO175-3C6L01-DO        |
+| ANS-C5L01-Yaml         | ANS-C5L01-YAML      | AUTO175-4C5L01-YAML      |
+| ANS-C5L03-Trust        | ANS-C5L03-TRUST     | AUTO175-4C5L03-TRUST     |
+| ANS-C5L05-Playbooks    | ANS-C5L05-PLAYBOOK  | AUTO175-4C5L05-PLAYBOOK  |
+| ANS-C5L07-InvFile      | ANS-C5L07-INVENTORY | AUTO175-4C5L07-INVENTORY |
+| ANS-C5L10-Commands     | ANS-C5L10-COMMAND   | AUTO175-4C5L10-COMMAND   |
+| ANS-C5L12-Apps         | ANS-C5L12-APP       | AUTO175-4C5L12-APP       |
+| ANS-C5L14-Onboard      | ANS-C5L14-ONBOARD   | AUTO175-4C5L14-ONBOARD   |
+| ANS-C5L16-HA           | ANS-C5L16-HA        | AUTO175-4C5L16-HA        |
+| ANS-C5L18-Roles        | ANS-C5L18-ROLES     | AUTO175-4C5L18-ROLES     |
+| AS3-C5L01-AutoAs3      | AS3-C5L01-AS3       | AUTO175-3C5L01-AS3       |
+| AS3-C6L01-DoOnboard    | AS3-C6L01-DO        | AUTO175-2C6L01-DO        |
 | ICR-C2L01-Review       | ICR-C2L01-REVIEW    | AUTO175-1C2L01-REVIEW    |
 | ICR-C4L01-JsonIntro    | ICR-C4L01-JSON      | AUTO175-1C4L01-JSON      |
 | ICR-C4L02-IcrProgram   | ICR-C4L02-PROGRAM   | AUTO175-1C4L02-PROGRAM   |
