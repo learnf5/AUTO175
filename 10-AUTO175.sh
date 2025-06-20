@@ -28,10 +28,10 @@ curl --silent https://raw.githubusercontent.com/learnf5/auto/main/v17.1/dev-rost
 ###fi
 
 # remove known_hosts to comply with Ansible labs
-[[ $COURSE_ID == AUTO175-4* ]] && rm ~/.ssh/known_hosts
+[[ $LAB_NUMBER == AUTO175-4* ]] && rm ~/.ssh/known_hosts
 
 # copy snippet files from GitHub
-###[[ $COURSE_ID == AUTO175-4* ]] && course=Ansible
+###[[ $LAB_NUMBER == AUTO175-4* ]] && course=Ansible
 ###dir=/home/student/Documents/Automating_BIG-IP/v17.5
 ###mkdir --parents $dir
 ###curl --silent --remote-name --output-dir $dir https://raw.githubusercontent.com/learnf5/auto/main/v17.1/$course.tgz
