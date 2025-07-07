@@ -1,4 +1,4 @@
-# confirm networking is up
+# confirm networking is up -- legacy from Skytap
 until ping -c 1 localhost; do sleep 1; done
 
 # change this jump box's management and external IP addresses
@@ -29,11 +29,3 @@ curl --silent https://raw.githubusercontent.com/learnf5/auto/main/v17.1/dev-rost
 
 # remove known_hosts to comply with Ansible labs
 [[ $LAB_NUMBER == AUTO175-4* ]] && rm ~/.ssh/known_hosts
-
-# copy snippet files from GitHub
-###[[ $LAB_NUMBER == AUTO175-4* ]] && course=Ansible
-###dir=/home/student/Documents/Automating_BIG-IP/v17.5
-###mkdir --parents $dir
-###curl --silent --remote-name --output-dir $dir https://raw.githubusercontent.com/learnf5/auto/main/v17.1/$course.tgz
-###tar xzf $dir/$course.tgz --directory $dir
-###rm $dir/$course.tgz
