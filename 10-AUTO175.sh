@@ -19,19 +19,19 @@ bip1=$(curl --silent https://raw.githubusercontent.com/learnf5/AUTO175/main/READ
 
 # change bigip1's hostname to bigip1a, if bigip1a is used
 if [[ $bip1 == present ]]; then
-    until $(ssh-keyscan bigip1 >/dev/null 2>&1); do sleep 1; done    # wait until bigip2 is reachable
+    until $(ssh-keyscan bigip1 >/dev/null 2>&1); do sleep 1; done    # wait until bigip1 is reachable
     ssh-keyscan bigip1 >>~/.ssh/known_hosts
     sshpass -p f5trn001 ssh root@bigip1 "tmsh modify sys global-settings hostname bigip1a.f5trn.com"
 fi
 
 # download config from github, copy and load/merge it to bigip1b, if bigip1b is used
-###if grep "$lab_id.*bigip1b" /tmp/dev-roster.md; then
-    ###until $(ssh-keyscan bigip2 >/dev/null 2>&1); do sleep 1; done    # wait until bigip2 is reachable
-    curl --silent https://raw.githubusercontent.com/learnf5/auto/main/v17.1/bigip1b.scf --output /tmp/bigip1b.scf
+if [[ $bip2 == present ]]; then
+    until $(ssh-keyscan bigip2 >/dev/null 2>&1); do sleep 1; done    # wait until bigip2 is reachable
+    curl --silent https://raw.githubusercontent.com/learnf5/AUTO175/main/bigip1b.scf --output /tmp/bigip1b.scf
     ssh-keyscan bigip2 >>~/.ssh/known_hosts
     sshpass -p f5trn002 scp /tmp/bigip1b.scf root@bigip2:/var/local/scf
     sshpass -p f5trn002 ssh -o ServerAliveInterval=1 root@bigip2 "tmsh load sys config file bigip1b.scf"   # after IP addr changes, session will hang
-###fi
+fi
 
 # remove known_hosts to comply with Ansible labs
 [[ $LAB_NUMBER == AUTO175-4* ]] && rm ~/.ssh/known_hosts
