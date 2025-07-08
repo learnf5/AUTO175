@@ -13,9 +13,9 @@ curl --silent https://raw.githubusercontent.com/learnf5/auto/main/v17.1/dev-rost
 
 # determine if bigip1 and bigip2 are used in this lab profile
 bip1=$(curl --silent https://raw.githubusercontent.com/learnf5/AUTO175/main/README.md | 
-  awk -F\| -vlab=$LAB_NUMBER 'BEGIN {bip1 = "absent"} /Lab VM/,/Lab Name/ {gsub(/ /, "", $2); gsub(//, "", $3); if ($2 == lab && $3 != "") bip1 = "present"} END {print bip1}')
+  awk -F\| -vlab=$LAB_NUMBER 'BEGIN {bip1 = "absent"} /Lab VM/,/Lab Name/ {gsub(/ /, "", $2); gsub(/ /, "", $3); if ($2 == lab && $3 != "") bip1 = "present"} END {print bip1}')
 [[ $bip1 == present ]] && bip2=$(curl --silent https://raw.githubusercontent.com/learnf5/AUTO175/main/README.md | 
-  awk -F\| -vlab=$LAB_NUMBER 'BEGIN {bip2 = "absent"} /Lab VM/,/Lab Name/ {gsub(/ /, "", $2); gsub(//, "", $3); if ($2 == lab && $4 != "") bip2 = "present"} END {print bip2}')
+  awk -F\| -vlab=$LAB_NUMBER 'BEGIN {bip2 = "absent"} /Lab VM/,/Lab Name/ {gsub(/ /, "", $2); gsub(/ /, "", $4); if ($2 == lab && $4 != "") bip2 = "present"} END {print bip2}')
 
 # change bigip1's hostname to bigip1a, if bigip1a is used
 if [[ $bip1 == present ]]; then
