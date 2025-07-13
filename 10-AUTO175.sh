@@ -1,4 +1,4 @@
-# function to determine if a specific VM exists within a specific lab
+# function to determine if a specific VM exists for a given lab
 #   globals: COURSE_ID, LAB_NUMBER; parameter: name of VM; returns: either "present" or "absent"
 #   example: status=$(vm_status bigip1a)
 #
