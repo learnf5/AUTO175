@@ -24,9 +24,10 @@ Notes, build scripts, and associated files for the Automating BIG-IP version 17.
 
 ## Lab VM RAM (GB) and SC
 
+<!--start-vm-->
 | Number                   | bigip1 | bigip2 | jump | ubuntu1 | ubuntu2 |
 | ------------------------ | :----: | :----: | :--: | :-----: | :-----: |
-| AUTO175-VM-UPDATE        |   8    |    8   |  4   |    4    |    4    |
+| AUTO175-VM-UPDATE        |   8    |   8    |  4   |    4    |    4    |
 | AUTO175-4C5L01-YAML      |        |        |  4   |         |         |
 | AUTO175-4C5L03-TRUST     |   8    |        |  4   |    4    |    4    |
 | AUTO175-4C5L05-PLAYBOOK  |   8    |        |  4   |    4    |    4    |
@@ -42,6 +43,7 @@ Notes, build scripts, and associated files for the Automating BIG-IP version 17.
 | AUTO175-1C4L01-JSON      |        |        |  4   |    4    |    4    |
 | AUTO175-1C4L02-PROGRAM   |   8    |        |  4   |    4    |    4    |
 | AUTO175-1C4L03-ONBOARD   |   8    |        |  4   |    4    |    4    |
+<!--end-vm-->
 
 ## Lab Name, Duration (hr), Series and VLANs
 
