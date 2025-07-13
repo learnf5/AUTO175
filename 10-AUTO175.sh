@@ -3,7 +3,8 @@
 
 function vm_status() {
   vm=$1
-  
+
+  # sqlite3 has absolutely terrible markdown parsing, hence the sed line noise ;-)
   status=$(curl --silent https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/README.md | 
     awk '/start-vm-table/,/end-vm-table/ {if ($0 !~ /-vm-table--/) {print $0}}' | 
     sed '2d; s/^| //; s/ |$//; s/  *|/|/g; s/|  */|/g' | 
