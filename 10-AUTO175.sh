@@ -1,6 +1,9 @@
 # function to determine if a specific VM exists within a specific lab
 #   globals: COURSE_ID, LAB_NUMBER; parameter: name of VM; returns: either "present" or "absent"
-
+#   example: status=$(vm_status bigip1a)
+#
+# cannot be used until sqlite3 installed on jump, doh!
+#
 function vm_status() {
   vm=$1
 
@@ -28,25 +31,20 @@ until dig f5.com | grep ^f5.com; do sleep 1; done
 curl --silent https://raw.githubusercontent.com/learnf5/auto/main/v17.1/dev-roster.md --output /tmp/dev-roster.md
 
 # determine if bigip1 and bigip2 are used in this lab profile
-bigip1=$(vm_status bigip1)
-[[ $bigip1 == "present" ]] && bigip2=$(vm_status bigip2)
-echo bigip1: $bigip1, bigip2: $bigip2
-
-# determine if bigip1 and bigip2 are used in this lab profile
-bip1=$(curl --silent https://raw.githubusercontent.com/learnf5/AUTO175/main/README.md | 
-  awk -F\| -vlab=$LAB_NUMBER 'BEGIN {bip1 = "absent"} /Lab VM/,/Lab Name/ {gsub(/ /, "", $2); gsub(/ /, "", $3); if ($2 == lab && $3 != "") bip1 = "present"} END {print bip1}')
-[[ $bip1 == present ]] && bip2=$(curl --silent https://raw.githubusercontent.com/learnf5/AUTO175/main/README.md | 
-  awk -F\| -vlab=$LAB_NUMBER 'BEGIN {bip2 = "absent"} /Lab VM/,/Lab Name/ {gsub(/ /, "", $2); gsub(/ /, "", $4); if ($2 == lab && $4 != "") bip2 = "present"} END {print bip2}')
+bigip1a=$(curl --silent https://raw.githubusercontent.com/learnf5/AUTO175/main/README.md | 
+  awk -F\| -vlab=$LAB_NUMBER 'BEGIN {bigip1a = "absent"} /Lab VM/,/Lab Name/ {gsub(/ /, "", $2); gsub(/ /, "", $3); if ($2 == lab && $3 != "") bigip1a = "present"} END {print bigip1a}')
+[[ $bigip1a == present ]] && bigip1b=$(curl --silent https://raw.githubusercontent.com/learnf5/AUTO175/main/README.md | 
+  awk -F\| -vlab=$LAB_NUMBER 'BEGIN {bigip1b = "absent"} /Lab VM/,/Lab Name/ {gsub(/ /, "", $2); gsub(/ /, "", $4); if ($2 == lab && $4 != "") bigip1b = "present"} END {print bigip1b}')
 
 # change bigip1's hostname to bigip1a, if bigip1a is used
-if [[ $bip1 == present ]]; then
+if [[ $bigip1a == present ]]; then
     until $(ssh-keyscan bigip1 >/dev/null 2>&1); do sleep 1; done    # wait until bigip1 is reachable
     ssh-keyscan bigip1 >>~/.ssh/known_hosts
     sshpass -p f5trn001 ssh root@bigip1 "tmsh modify sys global-settings hostname bigip1a.f5trn.com"
 fi
 
 # download config from github, copy and load/merge it to bigip1b, if bigip1b is used
-if [[ $bip2 == present ]]; then
+if [[ $bigip1b == present ]]; then
     until $(ssh-keyscan bigip2 >/dev/null 2>&1); do sleep 1; done    # wait until bigip2 is reachable
     curl --silent https://raw.githubusercontent.com/learnf5/AUTO175/main/bigip1b.scf --output /tmp/bigip1b.scf
     ssh-keyscan bigip2 >>~/.ssh/known_hosts
