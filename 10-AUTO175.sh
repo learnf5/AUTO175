@@ -1,11 +1,13 @@
-function vm_present() {
+function vm_size() {
   vm=$1
   
-  curl --silent https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/README.md | 
+  size=$(curl --silent https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/README.md | 
     awk '/start-vm/,/end-vm/ {if ($0 !~ /-vm--/) {print $0}}' | 
     sed '2d; s/^| //; s/ |$//; s/  *|/|/g; s/|  */|/g' | 
     sqlite3 -cmd ".mode markdown" -cmd ".import /dev/stdin labs" -cmd ".mode tabs" \
-    -cmd "select case when (select $vm from labs where Number = '$LAB_NUMBER') == '' then 'absent' else 'present' end"
+    -cmd "select case when (select $vm from labs where Number = '$LAB_NUMBER') == '' then 'absent' else 'present' end")
+
+  echo -n $size
 }
 
 bigip1=$(vm_present bigip1)
