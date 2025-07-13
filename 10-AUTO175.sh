@@ -27,13 +27,10 @@ sudo netplan apply
 # confirm dns is up
 until dig f5.com | grep ^f5.com; do sleep 1; done
 
-# get file that will show which, if any, bigips are needed
-curl --silent https://raw.githubusercontent.com/learnf5/auto/main/v17.1/dev-roster.md --output /tmp/dev-roster.md
-
-# determine if bigip1 and bigip2 are used in this lab profile
-bigip1a=$(curl --silent https://raw.githubusercontent.com/learnf5/AUTO175/main/README.md | 
+# determine if bigip1 ($3 in awk) and bigip2 ($4 in awk) are used in this lab profile
+bigip1a=$(curl --silent https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/README.md | 
   awk -F\| -vlab=$LAB_NUMBER 'BEGIN {bigip1a = "absent"} /Lab VM/,/Lab Name/ {gsub(/ /, "", $2); gsub(/ /, "", $3); if ($2 == lab && $3 != "") bigip1a = "present"} END {print bigip1a}')
-[[ $bigip1a == present ]] && bigip1b=$(curl --silent https://raw.githubusercontent.com/learnf5/AUTO175/main/README.md | 
+[[ $bigip1a == present ]] && bigip1b=$(curl --silent https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/README.md | 
   awk -F\| -vlab=$LAB_NUMBER 'BEGIN {bigip1b = "absent"} /Lab VM/,/Lab Name/ {gsub(/ /, "", $2); gsub(/ /, "", $4); if ($2 == lab && $4 != "") bigip1b = "present"} END {print bigip1b}')
 
 # change bigip1's hostname to bigip1a, if bigip1a is used
