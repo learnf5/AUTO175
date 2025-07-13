@@ -1,18 +1,17 @@
-function vm_size() {
+# function to determine if a specific VM exists within a specific lab
+#   globals: COURSE_ID, LAB_NUMBER; parameter: name of VM; returns: either "present" or "absent"
+
+function vm_status() {
   vm=$1
   
-  size=$(curl --silent https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/README.md | 
-    awk '/start-vm/,/end-vm/ {if ($0 !~ /-vm--/) {print $0}}' | 
+  status=$(curl --silent https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/README.md | 
+    awk '/start-vm-table/,/end-vm-table/ {if ($0 !~ /-vm-table--/) {print $0}}' | 
     sed '2d; s/^| //; s/ |$//; s/  *|/|/g; s/|  */|/g' | 
     sqlite3 -cmd ".mode markdown" -cmd ".import /dev/stdin labs" -cmd ".mode tabs" \
-    -cmd "select case when (select $vm from labs where Number = '$LAB_NUMBER') == '' then 'absent' else 'present' end")
+    -cmd "SELECT CASE WHEN (SELECT $vm FROM labs WHERE Number = '$LAB_NUMBER') == '' THEN 'absent' ELSE 'present' END")
 
-  echo -n $size
+  echo -n $status
 }
-
-bigip1=$(vm_present bigip1)
-bigip2=$(vm_present bigip2)
-echo bigip1: $bigip1, bigip2: $bigip2
 
 # confirm networking is up -- legacy from Skytap
 until ping -c 1 localhost; do sleep 1; done
@@ -26,6 +25,11 @@ until dig f5.com | grep ^f5.com; do sleep 1; done
 
 # get file that will show which, if any, bigips are needed
 curl --silent https://raw.githubusercontent.com/learnf5/auto/main/v17.1/dev-roster.md --output /tmp/dev-roster.md
+
+# determine if bigip1 and bigip2 are used in this lab profile
+bigip1=$(vm_status bigip1)
+[[ $bigip1 == "present" ]] && bigip2=$(vm_status bigip2)
+echo bigip1: $bigip1, bigip2: $bigip2
 
 # determine if bigip1 and bigip2 are used in this lab profile
 bip1=$(curl --silent https://raw.githubusercontent.com/learnf5/AUTO175/main/README.md | 
