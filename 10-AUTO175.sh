@@ -4,7 +4,7 @@
 #
 # cannot be used until sqlite3 installed on jump, doh!
 #
-function vm_status() {
+function vm_status_to_be_removed() {
   vm=$1
 
   # sqlite3 has absolutely terrible markdown parsing, hence the sed line noise ;-)
@@ -17,7 +17,7 @@ function vm_status() {
   echo -n $status
 }
 
-function vm_status2() {
+function vm_status() {
   # sqlite3 has absolutely terrible markdown parsing, hence the sed line noise ;-)
   echo -n $(curl --silent https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/README.md | 
     awk '/start-vm-table/,/end-vm-table/ {if ($0 !~ /-vm-table--/) {print $0}}' | 
@@ -26,8 +26,8 @@ function vm_status2() {
     -cmd "SELECT CASE WHEN (SELECT $1 FROM labs WHERE Number = '$LAB_NUMBER') == '' THEN 'absent' ELSE 'present' END")
 }
 
-echo bigip1a: ===$(vm_status2 bigip1a)===
-echo bigip1b: ===$(vm_status2 bigip1b)===
+echo bigip1a: ===$(vm_status bigip1a)===
+echo bigip1b: ===$(vm_status bigip1b)===
 
 # confirm networking is up -- legacy from Skytap
 until ping -c 1 localhost; do sleep 1; done
@@ -46,14 +46,14 @@ bigip1a=$(curl --silent https://raw.githubusercontent.com/learnf5/$COURSE_ID/mai
   awk -F\| -vlab=$LAB_NUMBER 'BEGIN {bigip1b = "absent"} /Lab VM/,/Lab Name/ {gsub(/ /, "", $2); gsub(/ /, "", $4); if ($2 == lab && $4 != "") bigip1b = "present"} END {print bigip1b}')
 
 # change bigip1's hostname to bigip1a, if bigip1a is used (note: bigip1 and bigip1a have the same IP address)
-if [[ $bigip1a == present ]]; then
+if [[ $(vm_status bigip1a) == present ]]; then
     until $(ssh-keyscan bigip1a >/dev/null 2>&1); do sleep 1; done    # wait until bigip1 is reachable
     ssh-keyscan bigip1a >>~/.ssh/known_hosts
     sshpass -p f5trn001 ssh root@bigip1a "tmsh modify sys global-settings hostname bigip1a.f5trn.com"
 fi
 
 # download config from github, copy and load/merge it to bigip1b, if bigip1b is used (note: bigip2 and bigip1b DO NOT have the same IP address)
-if [[ $bigip1b == present ]]; then
+if [[ $(vm_status bigip1b) == present ]]; then
     curl --silent https://raw.githubusercontent.com/learnf5/AUTO175/main/bigip1b.scf --output /tmp/bigip1b.scf
     until $(ssh-keyscan bigip2 >/dev/null 2>&1); do sleep 1; done    # wait until bigip2 is reachable
     ssh-keyscan bigip2 >>~/.ssh/known_hosts
