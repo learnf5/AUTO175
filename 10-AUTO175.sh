@@ -17,8 +17,19 @@ function vm_status() {
   echo -n $status
 }
 
-echo bigip1a: $(vm_status bigip1a)
-echo bigip1b: $(vm_status bigip1b)
+function vm_status2() {
+  vm=$1
+
+  # sqlite3 has absolutely terrible markdown parsing, hence the sed line noise ;-)
+  echo -n $(curl --silent https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/README.md | 
+    awk '/start-vm-table/,/end-vm-table/ {if ($0 !~ /-vm-table--/) {print $0}}' | 
+    sed '2d; s/^| //; s/ |$//; s/  *|/|/g; s/|  */|/g' | 
+    sqlite3 -cmd ".mode markdown" -cmd ".import /dev/stdin labs" -cmd ".mode tabs" \
+    -cmd "SELECT CASE WHEN (SELECT $vm FROM labs WHERE Number = '$LAB_NUMBER') == '' THEN 'absent' ELSE 'present' END")
+}
+
+echo bigip1a: $(vm_status2 bigip1a)
+echo bigip1b: $(vm_status2 bigip1b)
 
 # confirm networking is up -- legacy from Skytap
 until ping -c 1 localhost; do sleep 1; done
