@@ -26,23 +26,23 @@ Notes, build scripts, and associated files for the Automating BIG-IP version 17.
 
 <!--start-vm-table-->
 | Number                   | bigip1a | bigip1b | jump | ubuntu1a | ubuntu1b |
-| ------------------------ | :----: | :----: | :--: | :-----: | :-----: |
-| AUTO175-VM-UPDATE        |   8    |   8    |  4   |    4    |    4    |
-| AUTO175-4C5L01-YAML      |        |        |  4   |         |         |
-| AUTO175-4C5L03-TRUST     |   8    |        |  4   |    4    |    4    |
-| AUTO175-4C5L05-PLAYBOOK  |   8    |        |  4   |    4    |    4    |
-| AUTO175-4C5L07-INVENTORY |   8    |   8    |  4   |    4    |    4    |
-| AUTO175-4C5L10-COMMAND   |   8    |        |  4   |    4    |    4    |
-| AUTO175-4C5L12-APP       |   8    |        |  4   |    4    |    4    |
-| AUTO175-4C5L14-ONBOARD   |   8    |   8    |  4   |    4    |    4    |
-| AUTO175-4C5L16-HA        |   8    |   8    |  4   |    4    |    4    |
-| AUTO175-4C5L18-ROLES     |   8    |   8    |  4   |    4    |    4    |
-| AUTO175-3C5L01-AS3       |   8    |        |  4   |    4    |    4    |
-| AUTO175-2C6L01-DO        |   8    |        |  4   |    4    |    4    |
-| AUTO175-1C2L01-REVIEW    |   8    |        |  4   |    4    |    4    |
-| AUTO175-1C4L01-JSON      |        |        |  4   |    4    |    4    |
-| AUTO175-1C4L02-PROGRAM   |   8    |        |  4   |    4    |    4    |
-| AUTO175-1C4L03-ONBOARD   |   8    |        |  4   |    4    |    4    |
+| ------------------------ | :-----: | :-----: | :--: | :------: | :------: |
+| AUTO175-VM-UPDATE        |    8    |    8    |  4   |    4     |    4     |
+| AUTO175-4C5L01-YAML      |         |         |  4   |          |          |
+| AUTO175-4C5L03-TRUST     |    8    |         |  4   |    4     |    4     |
+| AUTO175-4C5L05-PLAYBOOK  |    8    |         |  4   |    4     |    4     |
+| AUTO175-4C5L07-INVENTORY |    8    |    8    |  4   |    4     |    4     |
+| AUTO175-4C5L10-COMMAND   |    8    |         |  4   |    4     |    4     |
+| AUTO175-4C5L12-APP       |    8    |         |  4   |    4     |    4     |
+| AUTO175-4C5L14-ONBOARD   |    8    |    8    |  4   |    4     |    4     |
+| AUTO175-4C5L16-HA        |    8    |    8    |  4   |    4     |    4     |
+| AUTO175-4C5L18-ROLES     |    8    |    8    |  4   |    4     |    4     |
+| AUTO175-3C5L01-AS3       |    8    |         |  4   |    4     |    4     |
+| AUTO175-2C6L01-DO        |    8    |         |  4   |    4     |    4     |
+| AUTO175-1C2L01-REVIEW    |    8    |         |  4   |    4     |    4     |
+| AUTO175-1C4L01-JSON      |         |         |  4   |    4     |    4     |
+| AUTO175-1C4L02-PROGRAM   |    8    |         |  4   |    4     |    4     |
+| AUTO175-1C4L03-ONBOARD   |    8    |         |  4   |    4     |    4     |
 <!--end-vm-table-->
 
 ## Lab Name, Duration (hr), Series and VLANs
