@@ -2,21 +2,6 @@
 #   globals: COURSE_ID, LAB_NUMBER; parameter: name of VM; returns: either "present" or "absent"
 #   example: status=$(vm_status bigip1a)
 #
-# cannot be used until sqlite3 installed on jump, doh!
-#
-function vm_status_to_be_removed() {
-  vm=$1
-
-  # sqlite3 has absolutely terrible markdown parsing, hence the sed line noise ;-)
-  status=$(curl --silent https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/README.md | 
-    awk '/start-vm-table/,/end-vm-table/ {if ($0 !~ /-vm-table--/) {print $0}}' | 
-    sed '2d; s/^| //; s/ |$//; s/  *|/|/g; s/|  */|/g' | 
-    sqlite3 -cmd ".mode markdown" -cmd ".import /dev/stdin labs" -cmd ".mode tabs" \
-    -cmd "SELECT CASE WHEN (SELECT $vm FROM labs WHERE Number = '$LAB_NUMBER') == '' THEN 'absent' ELSE 'present' END")
-
-  echo -n $status
-}
-
 function vm_status() {
   # sqlite3 has absolutely terrible markdown parsing, hence the sed line noise ;-)
   echo -n $(curl --silent https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/README.md | 
@@ -25,9 +10,6 @@ function vm_status() {
     sqlite3 -cmd ".mode markdown" -cmd ".import /dev/stdin labs" -cmd ".mode tabs" \
     -cmd "SELECT CASE WHEN (SELECT $1 FROM labs WHERE Number = '$LAB_NUMBER') == '' THEN 'absent' ELSE 'present' END")
 }
-
-echo bigip1a: ===$(vm_status bigip1a)===
-echo bigip1b: ===$(vm_status bigip1b)===
 
 # confirm networking is up -- legacy from Skytap
 until ping -c 1 localhost; do sleep 1; done
@@ -38,12 +20,6 @@ sudo netplan apply
 
 # confirm dns is up
 until dig f5.com | grep ^f5.com; do sleep 1; done
-
-# determine if bigip1 ($3 in awk) and bigip2 ($4 in awk) are used in this lab profile
-bigip1a=$(curl --silent https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/README.md | 
-  awk -F\| -vlab=$LAB_NUMBER 'BEGIN {bigip1a = "absent"} /Lab VM/,/Lab Name/ {gsub(/ /, "", $2); gsub(/ /, "", $3); if ($2 == lab && $3 != "") bigip1a = "present"} END {print bigip1a}')
-[[ $bigip1a == present ]] && bigip1b=$(curl --silent https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/README.md | 
-  awk -F\| -vlab=$LAB_NUMBER 'BEGIN {bigip1b = "absent"} /Lab VM/,/Lab Name/ {gsub(/ /, "", $2); gsub(/ /, "", $4); if ($2 == lab && $4 != "") bigip1b = "present"} END {print bigip1b}')
 
 # change bigip1's hostname to bigip1a, if bigip1a is used (note: bigip1 and bigip1a have the same IP address)
 if [[ $(vm_status bigip1a) == present ]]; then
