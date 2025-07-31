@@ -18,7 +18,7 @@ function vm_status() {
 }
 
 echo bigip1a: $(vm_status bigip1a)
-echo bigip2a: $(vm_status bigip2a)
+echo bigip1b: $(vm_status bigip1b)
 
 # confirm networking is up -- legacy from Skytap
 until ping -c 1 localhost; do sleep 1; done
