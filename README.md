@@ -27,7 +27,6 @@ Notes, build scripts, and associated files for the Automating BIG-IP version 17.
 <!--start-vm-table-->
 | Number                   | bigip1a | bigip1b | jump | ubuntu1a | ubuntu1b |
 | ------------------------ | :-----: | :-----: | :--: | :------: | :------: |
-| AUTO175-VM-UPDATE        |    8    |    8    |  4   |    4     |    4     |
 | AUTO175-4C5L01-YAML      |         |         |  4   |          |          |
 | AUTO175-4C5L03-TRUST     |    8    |         |  4   |    4     |    4     |
 | AUTO175-4C5L05-PLAYBOOK  |    8    |         |  4   |    4     |    4     |
